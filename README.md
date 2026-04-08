@@ -1,19 +1,5 @@
 # Thermodynamic-Properties-Calculator
 
-                          THERMODYNAMICS ↓
-                               |
-              Reactants        |        Products
-           [H₂ + O₂ + ...]    |    [H₂O + CO₂ + ...]
-                  \            |           /
-                   \    ΔH°rxn = Σ(ΔHf° products)    /
-                    \        − Σ(ΔHf° reactants)    /
-                     \           |           /
-                      \          |          /
-                  ΔS°rxn      ΔG°rxn      TΔS
-                   (entropy)  (Gibbs)   (T-correction)
-                               |
-              ← SPONTANEOUS  ΔG < 0  |  ΔG > 0  NON-SPONTANEOUS →
-
 **A computational chemistry project for calculating ΔH, ΔG, ΔS,
 predicting spontaneity, and visualizing thermodynamic behavior.**
 
