@@ -1,3 +1,7 @@
+CONTRIBUTOR-
+TAPISH UPADHYAY(25BCE10583)<BR>
+
+
 # Thermodynamic-Properties-Calculator
 
 **A computational chemistry project for calculating ΔH, ΔG, ΔS,
