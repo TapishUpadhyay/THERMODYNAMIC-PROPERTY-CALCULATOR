@@ -1,16 +1,7 @@
-"""
-Thermodynamic Properties Calculator
-
-"""
-
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import numpy as np
 
-
-# =======================================================================
-#  DATA CLASSES
-# =======================================================================
 
 class Molecule:
     """Represents a molecule with its thermodynamic data."""
@@ -35,10 +26,6 @@ class ReactionData:
         self.delta_g   = delta_g    # ΔG_rxn in kJ/mol
         self.delta_s   = delta_s    # ΔS_rxn in J/mol·K
 
-
-# =======================================================================
-#  THERMODYNAMIC CALCULATOR CLASS
-# =======================================================================
 
 class ThermodynamicCalculator:
     """Main class to calculate and visualize thermodynamic properties."""
@@ -119,20 +106,20 @@ class ThermodynamicCalculator:
 
     def calculate_delta_h(self, reactants, products):
         """Calculate ΔH_rxn = Σ(n × ΔHf° products) − Σ(n × ΔHf° reactants)."""
-        h_products  = sum(n * self.molecule_db[f]['delta_hf'] for f, n in products)
-        h_reactants = sum(n * self.molecule_db[f]['delta_hf'] for f, n in reactants)
+        h_products  = sum(n * self.molecule_db[f].delta_hf for f, n in products)
+        h_reactants = sum(n * self.molecule_db[f].delta_hf for f, n in reactants)
         return round(h_products - h_reactants, 2)
 
     def calculate_delta_s(self, reactants, products):
         """Calculate ΔS_rxn = Σ(n × S° products) − Σ(n × S° reactants) in J/mol·K."""
-        s_products  = sum(n * self.molecule_db[f]['entropy'] for f, n in products)
-        s_reactants = sum(n * self.molecule_db[f]['entropy'] for f, n in reactants)
+        s_products  = sum(n * self.molecule_db[f].entropy for f, n in products)
+        s_reactants = sum(n * self.molecule_db[f].entropy for f, n in reactants)
         return round(s_products - s_reactants, 2)
 
     def calculate_delta_g_hess(self, reactants, products):
         """Calculate ΔG_rxn = Σ(n × ΔGf° products) − Σ(n × ΔGf° reactants)."""
-        g_products  = sum(n * self.molecule_db[f]['delta_gf'] for f, n in products)
-        g_reactants = sum(n * self.molecule_db[f]['delta_gf'] for f, n in reactants)
+        g_products  = sum(n * self.molecule_db[f].delta_gf for f, n in products)
+        g_reactants = sum(n * self.molecule_db[f].delta_gf for f, n in reactants)
         return round(g_products - g_reactants, 2)
 
     def calculate_delta_g_equation(self, delta_h, delta_s, T=298.15):
@@ -222,10 +209,11 @@ class ThermodynamicCalculator:
         ax.tick_params(axis='x', labelsize=10)
 
         # Legend patches
-        ax.legend([
+        legend_handles = [
             mpatches.Patch(color='#e74c3c', label='Positive (endothermic / non-spont.)'),
             mpatches.Patch(color='#2ecc71', label='Negative (exothermic / spontaneous)')
-        ], fontsize=9, loc='upper right')
+        ]
+        ax.legend(handles=legend_handles, labels=[h.get_label() for h in legend_handles], fontsize=9, loc='upper right')
 
         for spine in ['top', 'right']:
             ax.spines[spine].set_visible(False)
